@@ -1,5 +1,21 @@
 # multilayer-perceptron
 
+# LINKS
+
+[SUBJECT](https://cdn.intra.42.fr/pdf/pdf/112647/en.subject.pdf)  
+[Wiki MLP](https://en.wikipedia.org/wiki/Multilayer_perceptron)  
+[Wiki MLP FR](https://fr.wikipedia.org/wiki/Perceptron_multicouche)  
+[Scikit learn MLP](https://scikit-learn.org/stable/modules/neural_networks_supervised.html)  
+[Medium MLP explained](https://towardsdatascience.com/multilayer-perceptron-explained-with-a-real-life-example-and-python-code-sentiment-analysis-cb408ee93141)  
+[Shiksa MLP explained](https://www.shiksha.com/online-courses/articles/understanding-multilayer-perceptron-mlp-neural-networks/)  
+[]()  
+[]()  
+[]()  
+[]()  
+[]()  
+
+
+# GUIDELINE
 Pour réussir ce projet, vous pouvez suivre ces étapes :
 
 1. Compréhension des Concepts :
