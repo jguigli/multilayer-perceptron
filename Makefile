@@ -7,7 +7,7 @@ train:
 predict:
 	@python3 predict.py
 clean:
-	@cd ./data/ && rm X_train X_test y_train y_test
+	@cd ./data/ && rm X_train.csv X_test.csv y_train.csv y_test.csv
 
 histogram:
 	@python3 histogram.py
