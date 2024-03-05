@@ -26,7 +26,7 @@ Data processing :
 
 Training phase :
 - Recuperer le set de train csv
-- Utilisation de la backprogation et de la descente de graidient pour obtenir les parametres
+- Utilisation de la backprogation et de la descente de gradient pour obtenir les parametres
 - Sauvegarder les parametres a la fin de la phase de training
 - Afficher a chaque periode, les metriques d'entrainements et de validations
 - Afficher le cout et la precision (learning curves) a la fin du training
