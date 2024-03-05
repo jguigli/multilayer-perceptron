@@ -1,13 +1,13 @@
 all: process train predict
 
 process:
-	@python3 process.py
+	@cd ./source/ && python3 process.py
 train:
 	@python3 train.py
 predict:
 	@python3 predict.py
 clean:
-	@rm thetas.csv
+	@cd ./data/ && rm X_train X_test y_train y_test
 
 histogram:
 	@python3 histogram.py
