@@ -44,6 +44,8 @@ Predict phase :
 Feedforward
 Backpropagation
 Gradient descent
+Standard Error
+Softmax function
 
 
 # Bonus
