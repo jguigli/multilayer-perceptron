@@ -17,22 +17,17 @@ def export_set(X_train, X_test, y_train, y_test, columns):
     print(f"Exporting file : train and test datasets has been saved to /data")
 
 
-def ft_test_train(data, test_size = 0, train_size = 0):
+def ft_test_train(data, test_rate = 0.33):
     data_shuffled = data.sample(frac=1, random_state=42)
     y_data = data_shuffled["Diagnosis"]
     X_data = data_shuffled.drop("Diagnosis", axis=1)
 
-    if test_size:
-        test_size = int(test_size * len(data))
-        train_size = int((1 - test_size) * len(data))
-    elif train_size:
-        train_size = int(train_size * len(data))
-        test_size = int((1 - train_size) * len(data))
+    test_size = int(test_rate * len(data))
     
-    X_train = X_data[:train_size]
-    X_test = X_data[train_size:]
-    y_train = y_data[:train_size]
-    y_test = y_data[train_size:]
+    X_train = X_data[test_size:]
+    X_test = X_data[:test_size]
+    y_train = y_data[test_size:]
+    y_test = y_data[:test_size]
     return X_train, X_test, y_train, y_test
 
 
