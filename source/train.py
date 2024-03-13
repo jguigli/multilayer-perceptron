@@ -1,7 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import nnfs
+from nnfs.datasets import spiral_data
 from utils import load
+
+nnfs.init()
 
 class Layer_Dense:
     def __init__(self, nb_inputs, nb_neurons):
@@ -50,6 +54,10 @@ def train():
         X = [[1, 2, 3 ,2.5],
              [2.0, 5.0, -1.0, 2.0],
              [-1.5, 2.7, 3.3, -0.8]]
+        
+        X, y = spiral_data(samples=100,classes=3)
+        # plt.scatter(X[:, 0], X[:, 1], c=y, cmap='brg')
+        # plt.show()
         
         layer1 = Layer_Dense(2, 3)
         activation1 = Activation_ReLU()

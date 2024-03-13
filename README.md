@@ -148,11 +148,7 @@ many other tasks. Classification is just a common task for neural networks.
 
 ## Single Neuron
 
-![alt text](<single neurons.png>)
-
 ## A Layer of Neurons
-
-![alt text](<layer of neurons-1.png>)
 
 ## Tensors, Matrix and Vectors
 
@@ -183,8 +179,6 @@ a direction.
 
 ## A layer of Neurons with Numpy
 
-![alt text](dotproduct.png)
-
 This syntax involving the dot product of weights and inputs followed by the vector addition of
 bias is the most commonly used way to represent this calculation of ​inputs·weights+bias​. To
 explain the order of parameters we are passing into ​np.dot(),​ we should think of it as whatever
@@ -197,8 +191,6 @@ vector of inputs and get a list of dot products ​—​ neuron outputs.
 
 ## Matrix Product
 
-![alt text](matrixproduct.png)
-
 To perform a matrix product, the size of the second dimension of the left matrix must match the
 size of the first dimension of the right matrix. For example, if the left matrix has a shape of ​(5, 4)
 then the right matrix must match this 4 within the first shape value ​(4, 7)​. The shape of the
@@ -209,10 +201,23 @@ array are both ​4,​ they match, and the resulting array has a shape of ​(5
 
 ## Transposition for the Matrix Product
 
-![alt text](transpose.png)
-
 The dot product and matrix product are both implemented in a single method: ​np.dot().​
 
 ## A Layer of Neurons & Batch of Data w/ NumPy
 
-Page 50
+We need to perform dot products on all of the vectors that consist of both input and weight matrices.
+We just need to perform transposition on its second argument, which is the weights matrix in our case, to turn the row
+vectors it currently consists of into column vectors.
+
+We mentioned that the second argument for ​np.dot()​ is going to be our transposed weights, so
+first will be inputs, but previously weights were the first parameter. We changed that here.
+Before, we were modeling neuron output using a single sample of data, a vector, but now we are
+a step forward when we model layer behavior on a batch of data. We could retain the current
+parameter order, but, as we’ll soon learn, it’s more useful to have a result consisting of a list of
+layer outputs per each sample than a list of neurons and their outputs sample-wise. We want the
+resulting array to be sample-related and not neuron-related as we’ll pass those samples further
+through the network, and the next layer will expect a batch of inputs.
+
+
+
+End to chap 4 page 23
