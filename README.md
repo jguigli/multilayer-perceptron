@@ -219,5 +219,4 @@ resulting array to be sample-related and not neuron-related as we’ll pass thos
 through the network, and the next layer will expect a batch of inputs.
 
 
-
-End to chap 4 page 23
+End to page 119
