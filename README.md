@@ -218,5 +218,11 @@ layer outputs per each sample than a list of neurons and their outputs sample-wi
 resulting array to be sample-related and not neuron-related as we’ll pass those samples further
 through the network, and the next layer will expect a batch of inputs.
 
+## Y Target
 
-End to page 119
+One-hot encoded : [0, 1] (show the position of the right target)
+Sparse encoded : 0 or 1 (binary)
+
+
+
+End to page 135
