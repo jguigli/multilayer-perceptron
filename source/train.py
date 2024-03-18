@@ -48,7 +48,7 @@ class Loss_CategoricalCrossEntropy(Loss):
         average_loss = np.mean(negative_log)
         return negative_log
     
-#A MODIFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+#A MODIFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 class Loss_BinaryCrossEntropy(Loss):
     def forward(self, y_pred, y_true):
         samples = len(y_pred)
