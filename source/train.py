@@ -45,7 +45,6 @@ class Loss_CategoricalCrossEntropy(Loss):
             correct_confidences = np.sum(y_pred_clipped * y_true, axis=1)
         
         negative_log = -np.log(correct_confidences)
-        average_loss = np.mean(negative_log)
         return negative_log
     
 #A MODIFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
