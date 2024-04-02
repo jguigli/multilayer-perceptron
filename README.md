@@ -42,10 +42,31 @@ Predict phase :
 # Important Notions
 
 Feedforward
+	Layer
+	Activation function
+		Sigmoid
+		ReLu
+		Softmax
+	Loss
 Backpropagation
+	Chain Rule
+	Derivative
+	Partial derivative
+	Gradient
 Gradient descent
+	Optimizer -> decrease loss
+		SGD
+		AdaGrad
+		RMSProp
+		Adam
+	Local minimum
+	Global minimum
+	Learning rate
+	Learning rate decay
+		Decay rate -> decays the learning rate per batch or epoch
+	Momentum
+	Gradient explosion
 Standard Error
-Softmax function
 
 
 # Bonus
