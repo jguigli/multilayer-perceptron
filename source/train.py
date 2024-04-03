@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import nnfs
 from nnfs.datasets import spiral_data, vertical_data
-from utils import load
+from utils import load, plot_learning_curves
 
 nnfs.init()
 
@@ -185,6 +185,9 @@ class Optimizer_Adam:
             layer.bias_momentums = np.zeros_like(layer.biases)
             layer.bias_cache = np.zeros_like(layer.biases)
 
+        layer.weight_momentums = self.beta_1 * layer.weight_momentums + (1 - self.beta_1) * layer.dweights
+        layer.bias_momentums = self.beta_1 * layer.bias_momentums + (1 - self.beta_1) * layer.dbiases
+
         weight_momentums_corrected = layer.weight_momentums / (1 - self.beta_1 ** (self.iterations + 1))
         bias_momentums_corrected = layer.bias_momentums / (1 - self.beta_1 ** (self.iterations + 1))
         
@@ -231,18 +234,26 @@ def train():
 
         # print(X_train)
         # print(y_train)
+
+        losses = []
+        accuracies = []
+        learning_rates = []
         
         layer1 = Layer_Dense(2, 64)
         activation1 = Activation_ReLU()
         layer2 = Layer_Dense(64, 3)
         loss_activation = Activation_Softmax_Loss_CategoricalCrossentropy()
-        optimizer = Optimizer_Adam(learning_rate=0.02, decay=1e-5)
+        optimizer = Optimizer_Adam(learning_rate=0.001, decay=1e-4)
         
-        for epoch in range(10001):
+        for epoch in range(1):
             layer1.forward(X_train)
             activation1.forward(layer1.output)
             layer2.forward(activation1.output)
             loss = loss_activation.forward(layer2.output, y_train)
+
+            print(layer1.weights)
+            print()
+            print(layer2.weights)
 
             predictions = np.argmax(loss_activation.output, axis=1)
 
@@ -250,7 +261,7 @@ def train():
                 y_train = np.argmax(y_train, axis=1)
             accuracy = np.mean(predictions == y_train)
             
-            if not epoch % 1000:
+            if not epoch % 100:
                 print(f'epoch: {epoch}, ' + f'acc: {accuracy:.3f}, ' + f'loss: {loss:.3f}, ' + f'lr: {optimizer.current_learning_rate}')
 
             # Backward pass
@@ -265,13 +276,14 @@ def train():
             optimizer.update_params(layer2)
             optimizer.post_update_params()
 
-            # Print gradients
-            # print(layer1.dweights)
-            # print(layer1.dbiases)
-            # print(layer2.dweights)
-            # print(layer2.dbiases)
+            losses.append(loss)
+            accuracies.append(accuracy)
+            learning_rates.append(optimizer.current_learning_rate)
         
         #Ajouter PLOT LOSS / Accuracy / learning rate
+        plot_learning_curves(losses, 'Loss')
+        plot_learning_curves(accuracies, 'Accuracy')
+        plot_learning_curves(learning_rates, 'Learning rate')
 
     
 

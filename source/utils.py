@@ -8,14 +8,6 @@ def load(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
     return df
 
-def sigmoid_function(z):
-    return 1 / (1 + np.exp(-z))
-
-def standard_scaler(data):
-    mean = np.mean(data)
-    scale = np.std(data - mean)
-    return (data - mean) / scale
-
 def export_thetas(parameters, str):
     thetas_dict = {}
     for values, house in parameters:
@@ -24,20 +16,11 @@ def export_thetas(parameters, str):
     df.to_csv(f"../data_sets/parameters_{str}.csv", index=False)
     print(f"Exporting file : parameters has been saved to ./data_sets/parameters_{str}.csv")
 
-def export_predict_house(class_predicted):
-    df = pd.DataFrame(class_predicted, columns=['Hogwarts House'])
-    df.to_csv("../data_sets/houses.csv", index_label='Index')
-    print(f"Exporting file : houses has been saved to ./data_sets/houses.csv")
-    return
-
-def plot_cost(costs):
-    for cost, house in costs:
-        plt.plot(range(len(cost)), cost, label=f"{house}")
-
-    plt.title("Convergence Graph of Cost Function for all Houses")
-    plt.xlabel("Number of Iterations")
-    plt.ylabel("Cost")
-    plt.legend()
+def plot_learning_curves(curves, name):
+    plt.plot(range(len(curves)), curves)
+    plt.xlabel('Epochs')
+    plt.ylabel(name)
+    plt.show()
     plt.show()
 
 def get_terminal_size():

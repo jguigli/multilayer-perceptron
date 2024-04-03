@@ -55,6 +55,7 @@ Backpropagation
 	Gradient
 Gradient descent
 	Optimizer -> decrease loss
+		Hyperparameters
 		SGD
 		AdaGrad
 		RMSProp
