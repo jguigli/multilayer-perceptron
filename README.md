@@ -88,3 +88,9 @@ Validation
 
 Binary cross entropy
 Model Object
+
+TODO :
+
+- Faire la validation
+- Implementer sauvegarde du modele
+- Bien choisir la data du dataset
