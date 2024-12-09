@@ -7,4 +7,4 @@ train:
 predict:
 	@cd ./source/ && python3 predict.py
 clean:
-	@cd ./data/ && rm X_train.csv X_test.csv y_train.csv y_test.csv
+	@cd ./data_sets/ && rm X_train.csv X_validation.csv y_train.csv y_validation.csv
