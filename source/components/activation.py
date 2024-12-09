@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Activation_ReLU():
-    def forward(self, inputs):
+    def forward(self, inputs, training):
         self.inputs = inputs
         self.output = np.maximum(0, inputs)
     
@@ -14,7 +14,7 @@ class Activation_ReLU():
         return outputs
 
 class Activation_Sigmoid():
-    def forward(self, inputs):
+    def forward(self, inputs, training):
         self.output = 1 / (1 + np.exp(-inputs))
         
     def backward(self, dvalues):
@@ -24,7 +24,7 @@ class Activation_Sigmoid():
         return (outputs > 0.5) * 1
 
 class Activation_Softmax():
-    def forward(self, inputs):
+    def forward(self, inputs, training):
         exp_values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
         probabilities = exp_values / np.sum(exp_values, axis=1, keepdims=True)
         self.output = probabilities

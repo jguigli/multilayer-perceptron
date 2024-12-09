@@ -2,6 +2,7 @@ import numpy as np
 
 
 class Loss:
+
     def remember_trainable_layers(self, trainable_layers):
         self.trainable_layers = trainable_layers
         
@@ -19,20 +20,21 @@ class Loss:
     def regularization_loss(self):
         regularization_loss = 0
         for layer in self.trainable_layers:
-            if layer.weight_regularizer_l1 > 0:
-                regularization_loss += layer.weight_regularizer_l1 * np.sum(np.abs(layer.weights))
+            if layer.weight_regularizer_L1 > 0:
+                regularization_loss += layer.weight_regularizer_L1 * np.sum(np.abs(layer.weights))
 
-            if layer.weight_regularizer_l2 > 0:
-                regularization_loss += layer.weight_regularizer_l2 * np.sum(layer.weights * layer.weights)
+            if layer.weight_regularizer_L2 > 0:
+                regularization_loss += layer.weight_regularizer_L2 * np.sum(layer.weights * layer.weights)
 
-            if layer.bias_regularizer_l1 > 0:
-                regularization_loss += layer.bias_regularizer_l1 * np.sum(np.abs(layer.biases))
+            if layer.bias_regularizer_L1 > 0:
+                regularization_loss += layer.bias_regularizer_L1 * np.sum(np.abs(layer.biases))
 
-            if layer.bias_regularizer_l2 > 0:
-                regularization_loss += layer.bias_regularizer_l2 * np.sum(layer.biases * layer.biases)
+            if layer.bias_regularizer_L2 > 0:
+                regularization_loss += layer.bias_regularizer_L2 * np.sum(layer.biases * layer.biases)
         return regularization_loss
 
 class Loss_CategoricalCrossEntropy(Loss):
+
     def forward(self, y_pred, y_true):
         samples = len(y_pred)
         y_pred_clipped = np.clip(y_pred, 1e-7, 1-1e-7)
@@ -56,6 +58,7 @@ class Loss_CategoricalCrossEntropy(Loss):
         self.dinputs = self.dinputs / samples
     
 class Loss_BinaryCrossEntropy(Loss):
+
     def forward(self, y_pred, y_true):
         y_pred_clipped = np.clip(y_pred, 1e-7, 1-1e-7)
 

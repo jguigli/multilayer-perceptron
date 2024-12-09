@@ -31,7 +31,7 @@ class Multilayer_Perceptron:
             self.softmax_classifier_output.backward(output, y)
             self.layers[-1].dinputs = self.softmax_classifier_output.dinputs
 
-            for layer in reversed(self.layer[:-1]):
+            for layer in reversed(self.layers[:-1]):
                 layer.backward(layer.next.dinputs)
             return
         
@@ -41,6 +41,7 @@ class Multilayer_Perceptron:
             layer.backward(layer.next.dinputs)
     
     def finalize(self):
+
         self.input_layer = Layer_Input()
 
         layer_count = len(self.layers)
@@ -67,6 +68,27 @@ class Multilayer_Perceptron:
 
         if isinstance(self.layers[-1], Activation_Softmax) and isinstance(self.loss, Loss_CategoricalCrossEntropy):
             self.softmax_classifier_output = Activation_Softmax_Loss_CategoricalCrossentropy()
+
+
+    # def overfitting_detected(self, epoch):
+
+    #     # If the model is overfitting, stop the training
+    #     # (early stopping)
+
+    #     if not self.check_overfitting:
+    #         return False
+
+    #     if epoch % self.early_stopping == 0:
+
+    #         current_loss = self.validation_metrics["loss"][-1]
+
+    #         # If the loss is not decreasing, stop the training
+    #         if self.last_loss is not None and current_loss >= self.last_loss:
+    #             return True
+
+    #         self.last_loss = current_loss
+
+    #     return False
     
     def fit(self, X, y, *, epochs=1, print_every=1, validation_data=None):
 
@@ -81,10 +103,14 @@ class Multilayer_Perceptron:
             # old_weights_layer1 = layer1.weights.copy()
             # old_weights_layer2 = layer2.weights.copy()
 
+            # if self.overfitting_detected(epoch):
+            #     print("\nOverfitting detected, training stopped\n")
+            #     break
+
             #Rajouter validation
 
             output = self.forward(X, training=True)
-            data_loss, regularization_loss = self.loss.calculate(output, y)
+            data_loss, regularization_loss = self.loss.calculate(output, y, include_regularization=True)
             loss = data_loss + regularization_loss
             predictions = self.output_layer_activation.predictions(output)
             accuracy = self.accuracy.calculate(predictions, y)
@@ -124,9 +150,10 @@ class Multilayer_Perceptron:
                 predictions = self.output_layer_activation.predictions(output)
                 accuracy = self.accuracy.calculate(predictions, y_validation)
                 
-                print(f'validation, ' +
-                f'acc: {accuracy:.3f}, ' +
-                f'loss: {loss:.3f}')
+                if not epoch % print_every:
+                    print(f'validation, ' +
+                    f'acc: {accuracy:.3f}, ' +
+                    f'loss: {loss:.3f}')
 
          #Ajouter PLOT LOSS / Accuracy / learning rate
         plot_learning_curves(losses, 'Loss')

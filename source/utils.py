@@ -18,8 +18,3 @@ def standard_scaler(data):
     mean = np.mean(data)
     scale = np.std(data - mean)
     return (data - mean) / scale
-
-def scaler(data):
-    max_value = np.max(data)
-    data_scale = (data.astype(np.float32) - max_value / 2) / max_value
-    return data_scale
