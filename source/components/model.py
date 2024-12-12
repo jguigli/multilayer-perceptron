@@ -171,11 +171,8 @@ class Multilayer_Perceptron:
 
     def finalize(self):
         self.input_layer = Layer_Input()
-
         layer_count = len(self.layers)
-
         self.softmax_classifier_output = None
-
         self.trainable_layers = []
 
         for i in range(layer_count):

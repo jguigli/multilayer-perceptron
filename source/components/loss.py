@@ -62,7 +62,7 @@ class Loss_CategoricalCrossEntropy(Loss):
         negative_log = -np.log(correct_confidences)
         return negative_log
     
-    def backward(self, dvalues, y_true): # REVOIR EXPLICATION
+    def backward(self, dvalues, y_true):
         samples = len(dvalues)
         labels = len(dvalues[0])
 
