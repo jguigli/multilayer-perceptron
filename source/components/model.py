@@ -120,6 +120,8 @@ class Multilayer_Perceptron:
 
         layer_count = len(self.layers)
 
+        self.softmax_classifier_output = None
+
         self.trainable_layers = []
 
         for i in range(layer_count):
@@ -233,6 +235,7 @@ class Multilayer_Perceptron:
             self.loss.new_pass()
             self.accuracy.new_pass()
 
+            # Batch training
             for step in range(train_steps):
 
                 if batch_size is None:
@@ -247,6 +250,7 @@ class Multilayer_Perceptron:
                 data_loss, regularization_loss = self.loss.calculate(output, batch_y, include_regularization=True)
                 loss = data_loss + regularization_loss
                 predictions = self.output_layer_activation.predictions(output)
+                
                 accuracy = self.accuracy.calculate(predictions, batch_y)
 
                 self.backward(output, batch_y)
@@ -268,6 +272,7 @@ class Multilayer_Perceptron:
             epoch_loss = epoch_data_loss + epoch_regularization_loss
             epoch_accuracy = self.accuracy.calculate_accumulated()
 
+            #Save metrics
             self.epoch.append(epoch)
             self.train_losses.append(epoch_loss)
             self.train_data_losses.append(epoch_data_loss)
@@ -275,6 +280,7 @@ class Multilayer_Perceptron:
             self.train_accuracies.append(epoch_accuracy)
             self.train_learning_rates.append(self.optimizer.current_learning_rate)
 
+            # Print metrics
             if epoch % print_every == 0 :
                 print(f'\ntraining    :' +
                     f'  accuracy: {epoch_accuracy:.3f}, ' +
@@ -311,10 +317,10 @@ class Multilayer_Perceptron:
                             f'  accuracy: {validation_accuracy:.3f}, ' +
                             f'loss: {validation_loss:.3f}')
                     break
-            
+        
+        #Export metrics
         self.manage_metrics(validation_data)
 
-        # PROTECT SI LOSS est none ############################################################################################################
         if plot_curves :
             plot_learning_curves('Loss', self.train_losses, self.validation_losses)
             plot_learning_curves('Accuracy', self.train_accuracies, self.validation_accuracies)

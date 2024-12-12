@@ -12,31 +12,32 @@ from utils import load, standard_scaler
 
 def train():
     try:
+        print(f"Loading dataset ...")
         X_train = load("../data_sets/X_train.csv")
         y_train = load("../data_sets/y_train.csv")
         X_validation = load("../data_sets/X_validation.csv")
         y_validation = load("../data_sets/y_validation.csv")
 
+        #Scaling
         X_train_scale = standard_scaler(X_train.values)
         X_validation_scale = standard_scaler(X_validation.values)
 
+        #One hot encoded
         y_train_one_hot = pd.get_dummies(y_train, dtype=int).values
         y_validation_one_hot = pd.get_dummies(y_validation, dtype=int).values
 
-
-
+        
         model = Multilayer_Perceptron()
 
         model.add(Layer_Dense(X_train_scale.shape[1], 36))
         model.add(Activation_ReLU())
-        # model.add(Layer_Dropout(0.1))
         model.add(Layer_Dense(36, 36))
         model.add(Activation_ReLU())
         model.add(Layer_Dense(36, 2))
         model.add(Activation_Softmax())
 
         model.set(
-            loss=Loss_CategoricalCrossEntropy(),
+            loss=Loss_BinaryCrossEntropy(),
             optimizer=Optimizer_Adam(),
             accuracy=Accuracy_Categorical()
         )
@@ -51,7 +52,7 @@ def train():
                 validation_data=(X_validation_scale, y_validation_one_hot),
                 early_stopping=True,
                 print_step=False,
-                plot_curves=True,
+                plot_curves=False,
                 )
         
         print(f"Saving parameters in /saved_parameters")

@@ -2,3 +2,4 @@
 ./source/__pycache__/
 ./source/components/__pycache__/*
 ./source/components/__pycache__/
+.DS_Store

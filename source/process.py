@@ -14,11 +14,11 @@ def export_set(X_train, y_train, X_validation, y_validation, columns):
     df = pd.DataFrame(y_validation, columns=['Diagnosis'])
     df.to_csv(f"../data_sets/y_validation.csv", index=False)
 
-    print(f"Exporting file : train and validation datasets has been saved to /data_sets")
+    print(f"=> train and validation datasets has been saved to /data_sets <=")
 
 
 def split_data_train_validation(data, validation_rate=0.2):
-    data_shuffled = data.sample(frac=1, random_state=42)
+    data_shuffled = data.sample(frac=1, random_state=23)
     y_data = data_shuffled["Diagnosis"]
     X_data = data_shuffled.drop(["ID number", "Diagnosis"], axis=1)
 
@@ -47,6 +47,7 @@ def process_data():
         
         raw_data.columns = columns_names
 
+        print("Process dataset ...")
         X_train, y_train, X_validation, y_validation = split_data_train_validation(raw_data, 0.2)
         export_set(X_train, y_train, X_validation, y_validation, columns_names)
         

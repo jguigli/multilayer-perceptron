@@ -8,14 +8,15 @@ def load(path: str) -> pd.DataFrame:
     return df
 
 def plot_learning_curves(name, curves_train, curves_validation=None):
-    if curves_validation is None:
-        plt.plot(range(len(curves_train)), curves_train)
-    else:
-        plt.plot(range(len(curves_train)), curves_train, curves_validation)
-    plt.xlabel('Epochs')
-    plt.ylabel(name)
-    plt.show()
-    plt.show()
+    if curves_train is not None:
+        if curves_validation is None:
+            plt.plot(range(len(curves_train)), curves_train)
+        else:
+            plt.plot(range(len(curves_train)), curves_train, curves_validation)
+        plt.xlabel('Epochs')
+        plt.ylabel(name)
+        plt.show()
+        plt.show()
 
 def standard_scaler(data):
     mean = np.mean(data)
