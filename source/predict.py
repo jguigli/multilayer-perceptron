@@ -7,16 +7,14 @@ from components.optimizer import Optimizer_AdaGrad, Optimizer_Adam, Optimizer_RM
 from components.loss import Loss_BinaryCrossEntropy, Loss_CategoricalCrossEntropy
 from components.accuracy import Accuracy_Categorical
 
-from utils import load, standard_scaler
-
 
 def predict():
     try:
         print(f"Loading dataset ...")
-        X = load("../data_sets/X_validation.csv")
-        y = load("../data_sets/y_validation.csv")
+        X = pd.read_csv("../data_sets/X_validation.csv")
+        y = pd.read_csv("../data_sets/y_validation.csv")
 
-        X_scale = standard_scaler(X.values)
+        X_scale = Multilayer_Perceptron.standard_scaler(X.values)
         y_one_hot = pd.get_dummies(y, dtype=int).values
 
         print(f"Loading model ...")

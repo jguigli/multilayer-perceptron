@@ -3,13 +3,12 @@ import copy
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from .activation import Activation_Softmax, Activation_ReLU, Activation_Softmax_Loss_CategoricalCrossentropy
 from .layer import Layer_Dense, Layer_Input
 from .optimizer import Optimizer_AdaGrad, Optimizer_Adam, Optimizer_RMSprop, Optimizer_SGD
 from .loss import Loss, Loss_BinaryCrossEntropy, Loss_CategoricalCrossEntropy
-
-from utils import plot_learning_curves
 
 
 class Multilayer_Perceptron:
@@ -90,6 +89,61 @@ class Multilayer_Perceptron:
         with open(path, 'rb') as f:
             model = pickle.load(f)
         return model
+    
+
+    def manage_metrics(self, validation_data):
+        train_metrics = {
+                'epoch': self.epoch,
+                'accuracy': self.train_accuracies,
+                'loss': self.train_losses,
+                'data_loss': self.train_data_losses,
+                'reg_loss': self.train_reg_losses,
+                'learning_rate': self.train_learning_rates
+        }
+
+        df = pd.DataFrame(train_metrics)
+        df.to_csv(f"../saved_metrics/train_metrics.csv", index=False)
+
+        if validation_data is not None:
+            validation_metrics = {
+                    'epoch': self.epoch,
+                    'accuracy': self.validation_accuracies,
+                    'loss': self.validation_losses,
+            }
+
+            df = pd.DataFrame(validation_metrics)
+            df.to_csv(f"../saved_metrics/validation_metrics.csv", index=False)
+
+        print(f"\nSaving training and validation metrics in /saved_metrics")
+
+    @staticmethod
+    def standard_scaler(data):
+        mean = np.mean(data)
+        scale = np.std(data - mean)
+        return (data - mean) / scale
+
+
+    def early_stopping(self, val_loss, patience=5, delta=0.001):
+        if val_loss < self.best_loss - delta:
+            self.best_loss = val_loss
+            self.patience_counter = 0
+        else:
+            self.patience_counter += 1
+            if self.patience_counter >= patience:
+                return True
+        return False
+    
+
+    def plot_learning_curves(self, name, curves_train, curves_validation=None):
+        if curves_train is not None:
+            if curves_validation is None:
+                plt.plot(range(len(curves_train)), curves_train)
+            else:
+                plt.plot(range(len(curves_train)), curves_train, curves_validation)
+            plt.xlabel('Epochs')
+            plt.ylabel(name)
+            plt.show()
+            plt.show()
     
 
     def forward(self, X, training):
@@ -178,43 +232,6 @@ class Multilayer_Perceptron:
         validation_accuracy = self.accuracy.calculate_accumulated()
         
         return validation_loss, validation_accuracy
-    
-    
-    def manage_metrics(self, validation_data):
-        train_metrics = {
-                'epoch': self.epoch,
-                'accuracy': self.train_accuracies,
-                'loss': self.train_losses,
-                'data_loss': self.train_data_losses,
-                'reg_loss': self.train_reg_losses,
-                'learning_rate': self.train_learning_rates
-        }
-
-        df = pd.DataFrame(train_metrics)
-        df.to_csv(f"../saved_metrics/train_metrics.csv", index=False)
-
-        if validation_data is not None:
-            validation_metrics = {
-                    'epoch': self.epoch,
-                    'accuracy': self.validation_accuracies,
-                    'loss': self.validation_losses,
-            }
-
-            df = pd.DataFrame(validation_metrics)
-            df.to_csv(f"../saved_metrics/validation_metrics.csv", index=False)
-
-        print(f"\nSaving training and validation metrics in /saved_metrics")
-
-
-    def early_stopping(self, val_loss, patience=5, delta=0.001):
-        if val_loss < self.best_loss - delta:
-            self.best_loss = val_loss
-            self.patience_counter = 0
-        else:
-            self.patience_counter += 1
-            if self.patience_counter >= patience:
-                return True
-        return False
     
 
     def fit(self, X, y, *, epochs=1, batch_size=None, print_every=1, validation_data=None, early_stopping=False, print_step=False, plot_curves=False):
@@ -322,9 +339,9 @@ class Multilayer_Perceptron:
         self.manage_metrics(validation_data)
 
         if plot_curves :
-            plot_learning_curves('Loss', self.train_losses, self.validation_losses)
-            plot_learning_curves('Accuracy', self.train_accuracies, self.validation_accuracies)
-            plot_learning_curves('Learning rate', self.train_learning_rates)
+            self.plot_learning_curves('Loss', self.train_losses, self.validation_losses)
+            self.plot_learning_curves('Accuracy', self.train_accuracies, self.validation_accuracies)
+            self.plot_learning_curves('Learning rate', self.train_learning_rates)
 
 
     def predict(self, X, *, batch_size=None):

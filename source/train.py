@@ -7,26 +7,25 @@ from components.optimizer import Optimizer_AdaGrad, Optimizer_Adam, Optimizer_RM
 from components.loss import Loss_BinaryCrossEntropy, Loss_CategoricalCrossEntropy
 from components.accuracy import Accuracy_Categorical
 
-from utils import load, standard_scaler
 
 
 def train():
     try:
         print(f"Loading dataset ...")
-        X_train = load("../data_sets/X_train.csv")
-        y_train = load("../data_sets/y_train.csv")
-        X_validation = load("../data_sets/X_validation.csv")
-        y_validation = load("../data_sets/y_validation.csv")
+        X_train = pd.read_csv("../data_sets/X_train.csv")
+        y_train = pd.read_csv("../data_sets/y_train.csv")
+        X_validation = pd.read_csv("../data_sets/X_validation.csv")
+        y_validation = pd.read_csv("../data_sets/y_validation.csv")
 
         #Scaling
-        X_train_scale = standard_scaler(X_train.values)
-        X_validation_scale = standard_scaler(X_validation.values)
+        X_train_scale = Multilayer_Perceptron.standard_scaler(X_train.values)
+        X_validation_scale = Multilayer_Perceptron.standard_scaler(X_validation.values)
 
         #One hot encoded
         y_train_one_hot = pd.get_dummies(y_train, dtype=int).values
         y_validation_one_hot = pd.get_dummies(y_validation, dtype=int).values
 
-        
+
         model = Multilayer_Perceptron()
 
         model.add(Layer_Dense(X_train_scale.shape[1], 36))

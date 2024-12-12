@@ -1,5 +1,4 @@
 import pandas as pd
-from utils import load
 
 def export_set(X_train, y_train, X_validation, y_validation, columns):
     X_columns = columns.remove('Diagnosis')
@@ -35,7 +34,7 @@ def split_data_train_validation(data, validation_rate=0.2):
 
 def process_data():
     try:
-        raw_data = load("../data_sets/data.csv")
+        raw_data = pd.read_csv("../data_sets/data.csv")
         section_names = ['Mean', 'Standard error', 'Largest']
         real_valued_names = ['radius', 'texture', 'perimeter', 'area', 'smootheness', 'compactness', 'concavity', 'concave points', 'symmetry', 'fractal dimension']
         columns_names = ['ID number', 'Diagnosis']
