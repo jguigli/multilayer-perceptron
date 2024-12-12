@@ -10,9 +10,6 @@
 [Shiksa MLP explained](https://www.shiksha.com/online-courses/articles/understanding-multilayer-perceptron-mlp-neural-networks/)  
 [SENTDEX YT MLP in python](https://www.youtube.com/watch?v=Wo5dMEP_BbI&list=PLQVvvaa0QuDcjD5BAw2DxE6OF2tius3V3)  
 [Neural Network case study](https://cs231n.github.io/neural-networks-case-study/)  
-[]()  
-[]()  
-[]()  
 
 
 # GUIDELINE
@@ -91,6 +88,5 @@ Model Object
 
 TODO :
 
-- Faire la validation
-- Implementer sauvegarde du modele
-- Bien choisir la data du dataset
+- rajouter des try catch pour erreur
+- condenser en petite fonction la methode fit()

@@ -7,8 +7,11 @@ def load(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
     return df
 
-def plot_learning_curves(curves, name):
-    plt.plot(range(len(curves)), curves)
+def plot_learning_curves(name, curves_train, curves_validation=None):
+    if curves_validation is None:
+        plt.plot(range(len(curves_train)), curves_train)
+    else:
+        plt.plot(range(len(curves_train)), curves_train, curves_validation)
     plt.xlabel('Epochs')
     plt.ylabel(name)
     plt.show()

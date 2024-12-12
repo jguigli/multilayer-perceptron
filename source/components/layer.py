@@ -2,7 +2,6 @@ import numpy as np
 
 
 class Layer_Dense:
-
     def __init__(self, nb_inputs, nb_neurons,
                  weight_regularizer_L1 = 0, weight_regularizer_L2 = 0,
                  bias_regularizer_L1 = 0, bias_regularizer_L2 = 0):
@@ -38,6 +37,13 @@ class Layer_Dense:
             self.dbiases += 2 * self.bias_regularizer_L2 * self.biases
 
         self.dinputs = np.dot(dvalues, self.weights.T)
+    
+    def get_parameters(self):
+        return self.weights, self.biases
+    
+    def set_parameters(self, weights, biases):
+        self.weights = weights
+        self.biases = biases
         
 class Layer_Dropout:
 
@@ -50,8 +56,7 @@ class Layer_Dropout:
         if not training:
             self.output = inputs.copy()
             return
-        self.binary_mask = np.random.binomial(1, self.rate,
-        size=inputs.shape) / self.rate
+        self.binary_mask = np.random.binomial(1, self.rate, size=inputs.shape) / self.rate
 
         self.output = inputs * self.binary_mask
 

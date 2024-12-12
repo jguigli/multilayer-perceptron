@@ -10,6 +10,9 @@ class Loss:
         sample_losses = self.forward(output, y)
         data_loss = np.mean(sample_losses)
 
+        self.accumulated_sum += np.sum(sample_losses)
+        self.accumulated_count += len(sample_losses)
+
         if not include_regularization:
             return data_loss
         return data_loss, self.regularization_loss()
@@ -32,6 +35,18 @@ class Loss:
             if layer.bias_regularizer_L2 > 0:
                 regularization_loss += layer.bias_regularizer_L2 * np.sum(layer.biases * layer.biases)
         return regularization_loss
+    
+    def calculate_accumulated(self, *, include_regularization=False):
+        data_loss = self.accumulated_sum / self.accumulated_count
+
+        if not include_regularization:
+            return data_loss
+        
+        return data_loss, self.regularization_loss()
+    
+    def new_pass(self):
+        self.accumulated_sum = 0
+        self.accumulated_count = 0
 
 class Loss_CategoricalCrossEntropy(Loss):
 
@@ -69,6 +84,8 @@ class Loss_BinaryCrossEntropy(Loss):
     def backward(self, dvalues, y_true):
         samples = len(dvalues)
         outputs = len(dvalues[0])
+
         clipped_dvalues = np.clip(dvalues, 1e-7, 1 - 1e-7)
+        
         self.dinputs = -(y_true / clipped_dvalues - (1 - y_true) / (1 - clipped_dvalues)) / outputs
         self.dinputs = self.dinputs / samples
