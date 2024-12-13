@@ -10,7 +10,7 @@ from components.accuracy import Accuracy_Categorical
 
 def predict():
     try:
-        print(f"Loading dataset ...")
+        print(f"Loading predict dataset ...")
         X = pd.read_csv("../data_sets/X_validation.csv")
         y = pd.read_csv("../data_sets/y_validation.csv")
 

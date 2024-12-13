@@ -11,7 +11,7 @@ from components.accuracy import Accuracy_Categorical
 
 def train():
     try:
-        print(f"Loading dataset ...")
+        print(f"Loading training and validation datasets ...")
         X_train = pd.read_csv("../data_sets/X_train.csv")
         y_train = pd.read_csv("../data_sets/y_train.csv")
         X_validation = pd.read_csv("../data_sets/X_validation.csv")
