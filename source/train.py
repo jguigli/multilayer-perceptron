@@ -1,7 +1,7 @@
 import pandas as pd
 
 from components.model import Multilayer_Perceptron
-from components.activation import Activation_Softmax, Activation_ReLU
+from components.activation import Activation_Softmax, Activation_ReLU, Activation_Sigmoid
 from components.layer import Layer_Dense, Layer_Dropout
 from components.optimizer import Optimizer_AdaGrad, Optimizer_Adam, Optimizer_RMSprop, Optimizer_SGD
 from components.loss import Loss_BinaryCrossEntropy, Loss_CategoricalCrossEntropy
@@ -28,16 +28,18 @@ def train():
 
         model = Multilayer_Perceptron()
 
-        model.add(Layer_Dense(X_train_scale.shape[1], 36))
+        model.add(Layer_Dense(X_train_scale.shape[1], 30))
         model.add(Activation_ReLU())
-        model.add(Layer_Dense(36, 36))
+
+        model.add(Layer_Dense(30, 30))
         model.add(Activation_ReLU())
-        model.add(Layer_Dense(36, 2))
+
+        model.add(Layer_Dense(30, 2))
         model.add(Activation_Softmax())
 
         model.set(
             loss=Loss_BinaryCrossEntropy(),
-            optimizer=Optimizer_Adam(),
+            optimizer=Optimizer_Adam(learning_rate=0.001, decay=0.0001),
             accuracy=Accuracy_Categorical()
         )
 
@@ -51,7 +53,7 @@ def train():
                 validation_data=(X_validation_scale, y_validation_one_hot),
                 early_stopping=True,
                 print_step=False,
-                plot_curves=False,
+                plot_curves=True,
                 )
         
         print(f"Saving parameters in /saved_parameters")

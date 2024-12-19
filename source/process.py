@@ -17,7 +17,7 @@ def export_set(X_train, y_train, X_validation, y_validation, columns):
 
 
 def split_data_train_validation(data, validation_rate=0.2):
-    data_shuffled = data.sample(frac=1, random_state=0)
+    data_shuffled = data.sample(frac=1, random_state=10)
     y_data = data_shuffled["Diagnosis"]
     X_data = data_shuffled.drop(["ID number", "Diagnosis"], axis=1)
 

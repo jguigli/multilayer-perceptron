@@ -315,24 +315,22 @@ class Multilayer_Perceptron:
                 
                 self.validation_losses.append(validation_loss)
                 self.validation_accuracies.append(validation_accuracy)
-            
-            #Early stopping
-            if early_stopping:
-                if self.early_stopping(epoch_loss):
-                    print(f"Early stopping at epoch {epoch}")
-                    print(f'training    :' +
-                        f'  accuracy: {epoch_accuracy:.3f}, ' +
-                        f'loss: {epoch_loss:.3f} ')
-                    
-                    if validation_data is not None:
-                        validation_loss = self.loss.calculate_accumulated()
-                        validation_accuracy = self.accuracy.calculate_accumulated()
+                
+                #Early stopping
+                if early_stopping:
+                    if self.early_stopping(validation_loss):
+                        print(f"Early stopping at epoch {epoch}")
+                        print(f'training    :' +
+                            f'  accuracy: {epoch_accuracy:.3f}, ' +
+                            f'loss: {epoch_loss:.3f} ')
+
                         print(f'validation  :' +
                             f'  accuracy: {validation_accuracy:.3f}, ' +
                             f'loss: {validation_loss:.3f}')
-                    break
+                        break
+            
         
-        #Export metrics
+        #Save metrics
         self.manage_metrics(validation_data)
 
         if plot_curves :
