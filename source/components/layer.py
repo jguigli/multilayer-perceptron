@@ -5,7 +5,7 @@ class Layer_Dense:
     def __init__(self, nb_inputs, nb_neurons,
                  weight_regularizer_L1 = 0, weight_regularizer_L2 = 0,
                  bias_regularizer_L1 = 0, bias_regularizer_L2 = 0):
-        self.weights = 0.1 * np.random.rand(nb_inputs, nb_neurons)
+        self.weights = np.random.normal(0, np.sqrt(2 / nb_inputs), (nb_inputs, nb_neurons))
         self.biases = np.zeros((1, nb_neurons))
         self.weight_regularizer_L1 = weight_regularizer_L1
         self.weight_regularizer_L2 = weight_regularizer_L2

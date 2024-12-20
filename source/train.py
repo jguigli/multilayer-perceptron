@@ -28,18 +28,21 @@ def train():
 
         model = Multilayer_Perceptron()
 
-        model.add(Layer_Dense(X_train_scale.shape[1], 30))
+        model.add(Layer_Dense(X_train_scale.shape[1], 100))
         model.add(Activation_ReLU())
 
-        model.add(Layer_Dense(30, 30))
+        model.add(Layer_Dense(100, 200))
         model.add(Activation_ReLU())
 
-        model.add(Layer_Dense(30, 2))
+        model.add(Layer_Dense(200, 100))
+        model.add(Activation_ReLU())
+
+        model.add(Layer_Dense(100, 2, weight_regularizer_L2=0.0005, bias_regularizer_L2=0.0005))
         model.add(Activation_Softmax())
 
         model.set(
             loss=Loss_BinaryCrossEntropy(),
-            optimizer=Optimizer_Adam(learning_rate=0.001, decay=0.0001),
+            optimizer=Optimizer_Adam(learning_rate=0.0001, decay=0.00001),
             accuracy=Accuracy_Categorical()
         )
 
@@ -47,9 +50,9 @@ def train():
 
         model.fit(X_train_scale,
                 y_train_one_hot,
-                epochs=200,
+                epochs=1500,
                 print_every=10,
-                batch_size=5,
+                batch_size=None,
                 validation_data=(X_validation_scale, y_validation_one_hot),
                 early_stopping=True,
                 print_step=False,

@@ -123,7 +123,7 @@ class Multilayer_Perceptron:
         return (data - mean) / scale
 
 
-    def early_stopping(self, val_loss, patience=5, delta=0.001):
+    def early_stopping(self, val_loss, patience=15, delta=0.001):
         if val_loss < self.best_loss - delta:
             self.best_loss = val_loss
             self.patience_counter = 0
