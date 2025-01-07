@@ -32,7 +32,7 @@ def predict():
 
 
 def main():
-    predict();
+    predict()
 
 if __name__ == "__main__":
     main()
