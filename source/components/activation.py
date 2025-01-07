@@ -29,7 +29,7 @@ class Activation_Softmax():
         probabilities = exp_values / np.sum(exp_values, axis=1, keepdims=True)
         self.output = probabilities
         
-    def backward(self, dvalues): # REVOIR EXPLICATION
+    def backward(self, dvalues):
         self.dinputs = np.empty_like(dvalues)
 
         for index, (single_output, single_dvalues) in enumerate(zip(self.output, dvalues)):
