@@ -22,7 +22,7 @@ install:
 freeze:
 	$(call venvWrapper, pip freeze > requirements.txt)
 
-all: process train predict
+all: install process train predict
 
 process:
 	@$(call venvWrapper, cd ./source/ && python3 process.py)
