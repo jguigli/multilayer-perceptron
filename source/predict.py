@@ -11,8 +11,8 @@ from components.accuracy import Accuracy_Categorical
 def predict():
     try:
         print(f"Loading predict dataset ...")
-        X = pd.read_csv("../data_sets/X_validation.csv")
-        y = pd.read_csv("../data_sets/y_validation.csv")
+        X = pd.read_csv("../data_sets/X_test.csv")
+        y = pd.read_csv("../data_sets/y_test.csv")
 
         X_scale = Multilayer_Perceptron.standard_scaler(X.values)
         y_one_hot = pd.get_dummies(y, dtype=int).values
