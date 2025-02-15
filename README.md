@@ -1,6 +1,6 @@
 # Multilayer Perceptron (MLP) Model
 
-This project implements a Multilayer Perceptron (MLP) for classification tasks using Python. It includes components for data processing, model training, evaluation, and prediction.
+This project implements a Multilayer Perceptron (MLP) for classification tasks using Python. It includes components for data processing, model training, evaluation, and prediction. The dataset used is a CSV file with 32 columns, where the `diagnosis` column serves as the label, indicating whether a breast mass is malignant (`M`) or benign (`B`). The remaining features describe the characteristics of a cell nucleus extracted via fine-needle aspiration.
 
 ## Features
 
