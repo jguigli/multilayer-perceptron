@@ -1,92 +1,119 @@
-# multilayer-perceptron
+# Multilayer Perceptron (MLP) Model
 
-# LINKS
+This project implements a Multilayer Perceptron (MLP) for classification tasks using Python. It includes components for data processing, model training, evaluation, and prediction.
 
-[SUBJECT](https://cdn.intra.42.fr/pdf/pdf/112647/en.subject.pdf)  
-[Wiki MLP](https://en.wikipedia.org/wiki/Multilayer_perceptron)  
-[Wiki MLP FR](https://fr.wikipedia.org/wiki/Perceptron_multicouche)  
-[Scikit learn MLP](https://scikit-learn.org/stable/modules/neural_networks_supervised.html)  
-[Medium MLP explained](https://towardsdatascience.com/multilayer-perceptron-explained-with-a-real-life-example-and-python-code-sentiment-analysis-cb408ee93141)  
-[Shiksa MLP explained](https://www.shiksha.com/online-courses/articles/understanding-multilayer-perceptron-mlp-neural-networks/)  
-[SENTDEX YT MLP in python](https://www.youtube.com/watch?v=Wo5dMEP_BbI&list=PLQVvvaa0QuDcjD5BAw2DxE6OF2tius3V3)  
-[Neural Network case study](https://cs231n.github.io/neural-networks-case-study/)  
+## Features
 
+- **Data Processing**: Splits and exports datasets for training and validation.
+- **Model Architecture**: Configurable layers with ReLU and Softmax activations.
+- **Training**: Supports early stopping, learning rate decay, and regularization.
+- **Evaluation**: Calculates accuracy and loss on validation datasets.
+- **Prediction**: Loads a trained model to make predictions on new data.
+- **Metrics Management**: Saves training and validation metrics for analysis.
 
-# GUIDELINE
+## Setup
 
-Data processing :
-- Recuperer le fichier .csv
-- Mettre les bons nom de colonnes trouve ici (https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.names)
-- Enlever les features inutiles (si necessaire)
-- Creer un set de train (80%)
-- Creer un set de test (20%)
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/jguigli/multilayer-perceptron.git
+   cd multilayer-perceptron
+   ```
 
-Training phase :
-- Recuperer le set de train csv
-- Utilisation de la backprogation et de la descente de gradient pour obtenir les parametres
-- Sauvegarder les parametres a la fin de la phase de training
-- Afficher a chaque periode, les metriques d'entrainements et de validations
-- Afficher le cout et la precision (learning curves) a la fin du training
+2. **Install Dependencies**:
+   - Ensure Python 3 is installed.
+   - Run the setup command:
+     ```bash
+     make install
+     ```
 
-Predict phase :
-- Recuperer le set de test csv
-- Recuperer les parametres
-- Predire les valeurs
-- Evaluer les valeurs obtenues a partir de la fonction d'erreur binary cross-entropy (https://en.wikipedia.org/wiki/Cross-entropy#Cross-entropy_error_function_and_logistic_regression)
+## Usage
 
+- **Process Data**:
+  ```bash
+  make process
+  ```
 
+- **Train Model**:
+  ```bash
+  make train
+  ```
 
-# Important Notions
+- **Predict**:
+  ```bash
+  make predict
+  ```
 
-One-hot encoded : [0, 1] (show the position of the right target)
-Sparse encoded : 0 or 1 (binary)
-Feedforward
-	Layer
-	Activation function
-		Sigmoid
-		ReLu
-		Softmax
-	Loss
-Backpropagation
-	Chain Rule
-	Derivative
-	Partial derivative
-	Gradient
-Gradient descent
-	Optimizer -> decrease loss
-		Hyperparameters
-		SGD
-		AdaGrad
-		RMSProp
-		Adam
-	Local minimum
-	Global minimum
-	Learning rate
-	Learning rate decay
-		Decay rate -> decays the learning rate per batch or epoch
-	Momentum
-	Gradient explosion
-Standard Error
+- **Clean Up**:
+  - Remove generated files and directories:
+    ```bash
+    make clean
+    ```
 
+- **Full Clean**:
+  - Remove all generated files, including virtual environment:
+    ```bash
+    make fclean
+    ```
 
-# Bonus
+## Directory Structure
 
-- A more complex optimization function (for example : nesterov momentum, RMSprop, Adam, ...).
-- A display of multiple learning curves on the same graph (really useful to compare different models).
-- An historic of the metric obtained during training.
-- The implementation of early stopping.
-- Evaluate the learning phase with multiple metrics.
+- `source/`: Contains the main source code for components and scripts.
+- `data_sets/`: Directory for storing datasets.
+- `saved_parameters/`: Stores model parameters.
+- `saved_model/`: Stores the serialized model.
+- `saved_metrics/`: Stores training and validation metrics.
 
+## Notes
 
-L1 and L2 regularization
-Dropout
+- Ensure that the `requirements.txt` file is up-to-date with all necessary Python packages.
+- The project uses a virtual environment for dependency management. Activate it before running scripts manually.
 
-Validation
+## Important Notions
 
-Binary cross entropy
-Model Object
+### Data Encoding
+- **One-hot encoded**: [0, 1] (shows the position of the right target)
+- **Sparse encoded**: 0 or 1 (binary)
 
-TODO :
+### Neural Network Components
+#### Feedforward
+- **Layer**: Basic building block of neural networks
+- **Activation Functions**:
+  - Sigmoid
+  - ReLU
+  - Softmax
+- **Loss**: Measure of prediction error
 
-- rajouter des try catch pour erreur
-- condenser en petite fonction la methode fit()
+#### Backpropagation
+- Chain Rule
+- Derivative
+- Partial derivative
+- Gradient
+
+#### Gradient Descent
+- **Optimizer** (decreases loss):
+  - Hyperparameters
+  - SGD
+  - AdaGrad
+  - RMSProp
+  - Adam
+- Local minimum
+- Global minimum
+- Learning rate
+- **Learning rate decay**:
+  - Decay rate (decays the learning rate per batch or epoch)
+- Momentum
+- Gradient explosion
+
+### Error Metrics
+- Standard Error
+
+## Useful Links
+
+- [SUBJECT](https://cdn.intra.42.fr/pdf/pdf/112647/en.subject.pdf)
+- [Wiki MLP](https://en.wikipedia.org/wiki/Multilayer_perceptron)
+- [Wiki MLP FR](https://fr.wikipedia.org/wiki/Perceptron_multicouche)
+- [Scikit learn MLP](https://scikit-learn.org/stable/modules/neural_networks_supervised.html)
+- [Medium MLP explained](https://towardsdatascience.com/multilayer-perceptron-explained-with-a-real-life-example-and-python-code-sentiment-analysis-cb408ee93141)
+- [Shiksa MLP explained](https://www.shiksha.com/online-courses/articles/understanding-multilayer-perceptron-mlp-neural-networks/)
+- [SENTDEX YT MLP in python](https://www.youtube.com/watch?v=Wo5dMEP_BbI&list=PLQVvvaa0QuDcjD5BAw2DxE6OF2tius3V3)
+- [Neural Network case study](https://cs231n.github.io/neural-networks-case-study/)
